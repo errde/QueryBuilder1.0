@@ -1,0 +1,51 @@
+﻿@model QueryBuilder1._0.kysely
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Luo kysely</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Luo kysely</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    @Html.DropDownList("ValintaOperaattori_ID", (IEnumerable<SelectListItem>)ViewBag.Valintaoperaattori, null, new { @class = "form-control" })
+
+    @Html.DropDownList("Maaritys_ID", (IEnumerable<SelectListItem>)ViewBag.Maaritys, null, new { @class = "form-control" })
+
+    <p>Talusta:</p>
+
+    <input type="text" name="Taulu" id="Talu" />
+
+    @Html.DropDownList("Ehto_ID", (IEnumerable<SelectListItem>)ViewBag.Ehto, null, new { @class = "form-control" })
+
+    <p>Ehto:</p>
+
+    <input type="text" name="Ehto" id="Ehto" />
+
+
+    @Html.DropDownList("Operaattori_ID", (IEnumerable<SelectListItem>)ViewBag.Operaattori, null, new { @class = "form-control" })
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

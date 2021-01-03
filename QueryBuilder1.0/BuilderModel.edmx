@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QUERY_BILDER_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EHTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="float" Nullable="false" />
+          <Property Name="EHTO" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="kysely">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="kysely" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="MAARITYS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="float" Nullable="false" />
+          <Property Name="MAARITYS_EHTO" Type="nvarchar" MaxLength="255" />
+          <Property Name="VALINTA_ID" Type="float" />
+        </EntityType>
+        <EntityType Name="OPERAATTORI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="float" Nullable="false" />
+          <Property Name="OPERAATTORI" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="SQL_EHTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="float" Nullable="false" />
+          <Property Name="SQL_EHTO" Type="nvarchar" MaxLength="255" />
+          <Property Name="EHTO_ID" Type="float" />
+        </EntityType>
+        <EntityType Name="SQL_MAARITYS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="float" Nullable="false" />
+          <Property Name="SQL_MAARITYS" Type="nvarchar" MaxLength="255" />
+          <Property Name="SQLValintaOperaattori_ID" Type="float" />
+        </EntityType>
+        <EntityType Name="SQL_OPERAATTORI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="float" Nullable="false" />
+          <Property Name="SQL_OPERAATTORI" Type="nvarchar" MaxLength="255" />
+          <Property Name="OPERAATTORI_ID" Type="float" />
+        </EntityType>
+        <EntityType Name="SQL_VALINTAOPERAATTORI">
+          <Key>
+            <PropertyRef Name="SQLValintaOperaattori_ID" />
+          </Key>
+          <Property Name="SQLValintaOperaattori_ID" Type="float" Nullable="false" />
+          <Property Name="SQL" Type="nvarchar" MaxLength="255" />
+          <Property Name="ValintaOperaattori_ID" Type="float" />
+        </EntityType>
+        <EntityType Name="VALINTAOPERAATTORI">
+          <Key>
+            <PropertyRef Name="ValintaOperaattori_ID" />
+          </Key>
+          <Property Name="ValintaOperaattori_ID" Type="float" Nullable="false" />
+          <Property Name="VALINTAOPERAATTORI" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__MAARITYS__VALINT__398D8EEE">
+          <End Role="VALINTAOPERAATTORI" Type="Self.VALINTAOPERAATTORI" Multiplicity="0..1" />
+          <End Role="MAARITYS" Type="Self.MAARITYS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VALINTAOPERAATTORI">
+              <PropertyRef Name="ValintaOperaattori_ID" />
+            </Principal>
+            <Dependent Role="MAARITYS">
+              <PropertyRef Name="VALINTA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SQL_EHTO__EHTO_I__3D5E1FD2">
+          <End Role="EHTO" Type="Self.EHTO" Multiplicity="0..1" />
+          <End Role="SQL_EHTO" Type="Self.SQL_EHTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EHTO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SQL_EHTO">
+              <PropertyRef Name="EHTO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SQL_MAARI__SQLVa__3C69FB99">
+          <End Role="SQL_VALINTAOPERAATTORI" Type="Self.SQL_VALINTAOPERAATTORI" Multiplicity="0..1" />
+          <End Role="SQL_MAARITYS" Type="Self.SQL_MAARITYS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQL_VALINTAOPERAATTORI">
+              <PropertyRef Name="SQLValintaOperaattori_ID" />
+            </Principal>
+            <Dependent Role="SQL_MAARITYS">
+              <PropertyRef Name="SQLValintaOperaattori_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SQL_OPERA__OPERA__3E52440B">
+          <End Role="OPERAATTORI" Type="Self.OPERAATTORI" Multiplicity="0..1" />
+          <End Role="SQL_OPERAATTORI" Type="Self.SQL_OPERAATTORI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OPERAATTORI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SQL_OPERAATTORI">
+              <PropertyRef Name="OPERAATTORI_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SQL_VALIN__Valin__3A81B327">
+          <End Role="VALINTAOPERAATTORI" Type="Self.VALINTAOPERAATTORI" Multiplicity="0..1" />
+          <End Role="SQL_VALINTAOPERAATTORI" Type="Self.SQL_VALINTAOPERAATTORI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VALINTAOPERAATTORI">
+              <PropertyRef Name="ValintaOperaattori_ID" />
+            </Principal>
+            <Dependent Role="SQL_VALINTAOPERAATTORI">
+              <PropertyRef Name="ValintaOperaattori_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QUERY_BILDER_DBModelStoreContainer">
+          <EntitySet Name="EHTO" EntityType="Self.EHTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kysely" EntityType="Self.kysely" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAARITYS" EntityType="Self.MAARITYS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OPERAATTORI" EntityType="Self.OPERAATTORI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SQL_EHTO" EntityType="Self.SQL_EHTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SQL_MAARITYS" EntityType="Self.SQL_MAARITYS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SQL_OPERAATTORI" EntityType="Self.SQL_OPERAATTORI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SQL_VALINTAOPERAATTORI" EntityType="Self.SQL_VALINTAOPERAATTORI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VALINTAOPERAATTORI" EntityType="Self.VALINTAOPERAATTORI" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__MAARITYS__VALINT__398D8EEE" Association="Self.FK__MAARITYS__VALINT__398D8EEE">
+            <End Role="VALINTAOPERAATTORI" EntitySet="VALINTAOPERAATTORI" />
+            <End Role="MAARITYS" EntitySet="MAARITYS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SQL_EHTO__EHTO_I__3D5E1FD2" Association="Self.FK__SQL_EHTO__EHTO_I__3D5E1FD2">
+            <End Role="EHTO" EntitySet="EHTO" />
+            <End Role="SQL_EHTO" EntitySet="SQL_EHTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SQL_MAARI__SQLVa__3C69FB99" Association="Self.FK__SQL_MAARI__SQLVa__3C69FB99">
+            <End Role="SQL_VALINTAOPERAATTORI" EntitySet="SQL_VALINTAOPERAATTORI" />
+            <End Role="SQL_MAARITYS" EntitySet="SQL_MAARITYS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SQL_OPERA__OPERA__3E52440B" Association="Self.FK__SQL_OPERA__OPERA__3E52440B">
+            <End Role="OPERAATTORI" EntitySet="OPERAATTORI" />
+            <End Role="SQL_OPERAATTORI" EntitySet="SQL_OPERAATTORI" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SQL_VALIN__Valin__3A81B327" Association="Self.FK__SQL_VALIN__Valin__3A81B327">
+            <End Role="VALINTAOPERAATTORI" EntitySet="VALINTAOPERAATTORI" />
+            <End Role="SQL_VALINTAOPERAATTORI" EntitySet="SQL_VALINTAOPERAATTORI" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QUERY_BILDER_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EHTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Double" Nullable="false" />
+          <Property Name="EHTO1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SQL_EHTO" Relationship="Self.FK__SQL_EHTO__EHTO_I__3D5E1FD2" FromRole="EHTO" ToRole="SQL_EHTO" />
+        </EntityType>
+        <EntityType Name="MAARITYS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Double" Nullable="false" />
+          <Property Name="MAARITYS_EHTO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="VALINTA_ID" Type="Double" />
+          <NavigationProperty Name="VALINTAOPERAATTORI" Relationship="Self.FK__MAARITYS__VALINT__398D8EEE" FromRole="MAARITYS" ToRole="VALINTAOPERAATTORI" />
+        </EntityType>
+        <EntityType Name="OPERAATTORI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Double" Nullable="false" />
+          <Property Name="OPERAATTORI1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SQL_OPERAATTORI" Relationship="Self.FK__SQL_OPERA__OPERA__3E52440B" FromRole="OPERAATTORI" ToRole="SQL_OPERAATTORI" />
+        </EntityType>
+        <EntityType Name="SQL_EHTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Double" Nullable="false" />
+          <Property Name="SQL_EHTO1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EHTO_ID" Type="Double" />
+          <NavigationProperty Name="EHTO" Relationship="Self.FK__SQL_EHTO__EHTO_I__3D5E1FD2" FromRole="SQL_EHTO" ToRole="EHTO" />
+        </EntityType>
+        <EntityType Name="SQL_MAARITYS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Double" Nullable="false" />
+          <Property Name="SQL_MAARITYS1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SQLValintaOperaattori_ID" Type="Double" />
+          <NavigationProperty Name="SQL_VALINTAOPERAATTORI" Relationship="Self.FK__SQL_MAARI__SQLVa__3C69FB99" FromRole="SQL_MAARITYS" ToRole="SQL_VALINTAOPERAATTORI" />
+        </EntityType>
+        <EntityType Name="SQL_OPERAATTORI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Double" Nullable="false" />
+          <Property Name="SQL_OPERAATTORI1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OPERAATTORI_ID" Type="Double" />
+          <NavigationProperty Name="OPERAATTORI" Relationship="Self.FK__SQL_OPERA__OPERA__3E52440B" FromRole="SQL_OPERAATTORI" ToRole="OPERAATTORI" />
+        </EntityType>
+        <EntityType Name="SQL_VALINTAOPERAATTORI">
+          <Key>
+            <PropertyRef Name="SQLValintaOperaattori_ID" />
+          </Key>
+          <Property Name="SQLValintaOperaattori_ID" Type="Double" Nullable="false" />
+          <Property Name="SQL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ValintaOperaattori_ID" Type="Double" />
+          <NavigationProperty Name="SQL_MAARITYS" Relationship="Self.FK__SQL_MAARI__SQLVa__3C69FB99" FromRole="SQL_VALINTAOPERAATTORI" ToRole="SQL_MAARITYS" />
+          <NavigationProperty Name="VALINTAOPERAATTORI" Relationship="Self.FK__SQL_VALIN__Valin__3A81B327" FromRole="SQL_VALINTAOPERAATTORI" ToRole="VALINTAOPERAATTORI" />
+        </EntityType>
+        <EntityType Name="VALINTAOPERAATTORI">
+          <Key>
+            <PropertyRef Name="ValintaOperaattori_ID" />
+          </Key>
+          <Property Name="ValintaOperaattori_ID" Type="Double" Nullable="false" />
+          <Property Name="VALINTAOPERAATTORI1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MAARITYS" Relationship="Self.FK__MAARITYS__VALINT__398D8EEE" FromRole="VALINTAOPERAATTORI" ToRole="MAARITYS" />
+          <NavigationProperty Name="SQL_VALINTAOPERAATTORI" Relationship="Self.FK__SQL_VALIN__Valin__3A81B327" FromRole="VALINTAOPERAATTORI" ToRole="SQL_VALINTAOPERAATTORI" />
+        </EntityType>
+        <Association Name="FK__SQL_EHTO__EHTO_I__3D5E1FD2">
+          <End Role="EHTO" Type="Self.EHTO" Multiplicity="0..1" />
+          <End Role="SQL_EHTO" Type="Self.SQL_EHTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EHTO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SQL_EHTO">
+              <PropertyRef Name="EHTO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MAARITYS__VALINT__398D8EEE">
+          <End Role="VALINTAOPERAATTORI" Type="Self.VALINTAOPERAATTORI" Multiplicity="0..1" />
+          <End Role="MAARITYS" Type="Self.MAARITYS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VALINTAOPERAATTORI">
+              <PropertyRef Name="ValintaOperaattori_ID" />
+            </Principal>
+            <Dependent Role="MAARITYS">
+              <PropertyRef Name="VALINTA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SQL_OPERA__OPERA__3E52440B">
+          <End Role="OPERAATTORI" Type="Self.OPERAATTORI" Multiplicity="0..1" />
+          <End Role="SQL_OPERAATTORI" Type="Self.SQL_OPERAATTORI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OPERAATTORI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SQL_OPERAATTORI">
+              <PropertyRef Name="OPERAATTORI_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SQL_MAARI__SQLVa__3C69FB99">
+          <End Role="SQL_VALINTAOPERAATTORI" Type="Self.SQL_VALINTAOPERAATTORI" Multiplicity="0..1" />
+          <End Role="SQL_MAARITYS" Type="Self.SQL_MAARITYS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQL_VALINTAOPERAATTORI">
+              <PropertyRef Name="SQLValintaOperaattori_ID" />
+            </Principal>
+            <Dependent Role="SQL_MAARITYS">
+              <PropertyRef Name="SQLValintaOperaattori_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SQL_VALIN__Valin__3A81B327">
+          <End Role="VALINTAOPERAATTORI" Type="Self.VALINTAOPERAATTORI" Multiplicity="0..1" />
+          <End Role="SQL_VALINTAOPERAATTORI" Type="Self.SQL_VALINTAOPERAATTORI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VALINTAOPERAATTORI">
+              <PropertyRef Name="ValintaOperaattori_ID" />
+            </Principal>
+            <Dependent Role="SQL_VALINTAOPERAATTORI">
+              <PropertyRef Name="ValintaOperaattori_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QUERY_BILDER_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EHTO" EntityType="Self.EHTO" />
+          <EntitySet Name="MAARITYS" EntityType="Self.MAARITYS" />
+          <EntitySet Name="OPERAATTORI" EntityType="Self.OPERAATTORI" />
+          <EntitySet Name="SQL_EHTO" EntityType="Self.SQL_EHTO" />
+          <EntitySet Name="SQL_MAARITYS" EntityType="Self.SQL_MAARITYS" />
+          <EntitySet Name="SQL_OPERAATTORI" EntityType="Self.SQL_OPERAATTORI" />
+          <EntitySet Name="SQL_VALINTAOPERAATTORI" EntityType="Self.SQL_VALINTAOPERAATTORI" />
+          <EntitySet Name="VALINTAOPERAATTORI" EntityType="Self.VALINTAOPERAATTORI" />
+          <AssociationSet Name="FK__SQL_EHTO__EHTO_I__3D5E1FD2" Association="Self.FK__SQL_EHTO__EHTO_I__3D5E1FD2">
+            <End Role="EHTO" EntitySet="EHTO" />
+            <End Role="SQL_EHTO" EntitySet="SQL_EHTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MAARITYS__VALINT__398D8EEE" Association="Self.FK__MAARITYS__VALINT__398D8EEE">
+            <End Role="VALINTAOPERAATTORI" EntitySet="VALINTAOPERAATTORI" />
+            <End Role="MAARITYS" EntitySet="MAARITYS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SQL_OPERA__OPERA__3E52440B" Association="Self.FK__SQL_OPERA__OPERA__3E52440B">
+            <End Role="OPERAATTORI" EntitySet="OPERAATTORI" />
+            <End Role="SQL_OPERAATTORI" EntitySet="SQL_OPERAATTORI" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SQL_MAARI__SQLVa__3C69FB99" Association="Self.FK__SQL_MAARI__SQLVa__3C69FB99">
+            <End Role="SQL_VALINTAOPERAATTORI" EntitySet="SQL_VALINTAOPERAATTORI" />
+            <End Role="SQL_MAARITYS" EntitySet="SQL_MAARITYS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SQL_VALIN__Valin__3A81B327" Association="Self.FK__SQL_VALIN__Valin__3A81B327">
+            <End Role="VALINTAOPERAATTORI" EntitySet="VALINTAOPERAATTORI" />
+            <End Role="SQL_VALINTAOPERAATTORI" EntitySet="SQL_VALINTAOPERAATTORI" />
+          </AssociationSet>
+          <EntitySet Name="kysely" EntityType="QUERY_BILDER_DBModel.kysely" />
+        </EntityContainer>
+        <EntityType Name="kysely">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="kysely1" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QUERY_BILDER_DBModelStoreContainer" CdmEntityContainer="QUERY_BILDER_DBEntities">
+          <EntitySetMapping Name="EHTO">
+            <EntityTypeMapping TypeName="QUERY_BILDER_DBModel.EHTO">
+              <MappingFragment StoreEntitySet="EHTO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EHTO1" ColumnName="EHTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAARITYS">
+            <EntityTypeMapping TypeName="QUERY_BILDER_DBModel.MAARITYS">
+              <MappingFragment StoreEntitySet="MAARITYS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MAARITYS_EHTO" ColumnName="MAARITYS_EHTO" />
+                <ScalarProperty Name="VALINTA_ID" ColumnName="VALINTA_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OPERAATTORI">
+            <EntityTypeMapping TypeName="QUERY_BILDER_DBModel.OPERAATTORI">
+              <MappingFragment StoreEntitySet="OPERAATTORI">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OPERAATTORI1" ColumnName="OPERAATTORI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQL_EHTO">
+            <EntityTypeMapping TypeName="QUERY_BILDER_DBModel.SQL_EHTO">
+              <MappingFragment StoreEntitySet="SQL_EHTO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SQL_EHTO1" ColumnName="SQL_EHTO" />
+                <ScalarProperty Name="EHTO_ID" ColumnName="EHTO_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQL_MAARITYS">
+            <EntityTypeMapping TypeName="QUERY_BILDER_DBModel.SQL_MAARITYS">
+              <MappingFragment StoreEntitySet="SQL_MAARITYS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SQL_MAARITYS1" ColumnName="SQL_MAARITYS" />
+                <ScalarProperty Name="SQLValintaOperaattori_ID" ColumnName="SQLValintaOperaattori_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQL_OPERAATTORI">
+            <EntityTypeMapping TypeName="QUERY_BILDER_DBModel.SQL_OPERAATTORI">
+              <MappingFragment StoreEntitySet="SQL_OPERAATTORI">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SQL_OPERAATTORI1" ColumnName="SQL_OPERAATTORI" />
+                <ScalarProperty Name="OPERAATTORI_ID" ColumnName="OPERAATTORI_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQL_VALINTAOPERAATTORI">
+            <EntityTypeMapping TypeName="QUERY_BILDER_DBModel.SQL_VALINTAOPERAATTORI">
+              <MappingFragment StoreEntitySet="SQL_VALINTAOPERAATTORI">
+                <ScalarProperty Name="SQLValintaOperaattori_ID" ColumnName="SQLValintaOperaattori_ID" />
+                <ScalarProperty Name="SQL" ColumnName="SQL" />
+                <ScalarProperty Name="ValintaOperaattori_ID" ColumnName="ValintaOperaattori_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VALINTAOPERAATTORI">
+            <EntityTypeMapping TypeName="QUERY_BILDER_DBModel.VALINTAOPERAATTORI">
+              <MappingFragment StoreEntitySet="VALINTAOPERAATTORI">
+                <ScalarProperty Name="ValintaOperaattori_ID" ColumnName="ValintaOperaattori_ID" />
+                <ScalarProperty Name="VALINTAOPERAATTORI1" ColumnName="VALINTAOPERAATTORI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kysely">
+            <EntityTypeMapping TypeName="QUERY_BILDER_DBModel.kysely">
+              <MappingFragment StoreEntitySet="kysely">
+                <ScalarProperty Name="kysely1" ColumnName="kysely" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
