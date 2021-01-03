@@ -14,6 +14,7 @@
 <div class="form-horizontal">
     <h4>Luo kysely</h4>
     <hr />
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
@@ -23,7 +24,7 @@
 
     <p>Talusta:</p>
 
-    <input type="text" name="Taulu" id="Talu" />
+    <input type="text" name="Taulu" id="Taulu" />
 
     @Html.DropDownList("Ehto_ID", (IEnumerable<SelectListItem>)ViewBag.Ehto, null, new { @class = "form-control" })
 

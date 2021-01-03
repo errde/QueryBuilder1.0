@@ -54,7 +54,7 @@ namespace QueryBuilder1._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,kysely1")] kysely kysely)
+        public ActionResult Create(kysely kysely)
         {
             if (ModelState.IsValid)
             {
@@ -84,17 +84,36 @@ namespace QueryBuilder1._0.Controllers
                 int kayttajanEhto = db.EHTO.Where(a => a.ID == kayttajanEhtoString)
                 .Select(a => (int)a.ID).FirstOrDefault();
 
-                string ehto = db.SQL_EHTO.Where(a => a.EHTO_ID == kayttajanMaaritys)
+                string ehto = db.SQL_EHTO.Where(a => a.EHTO_ID == kayttajanEhto)
                 .Select(a => a.SQL_EHTO1).FirstOrDefault();
 
 
+                //Operaattori
+                int kayttajanOperaattoriString = int.Parse(Request.Form["Operaattori_ID"]);
+
+                int kayttajanOperaattori = db.OPERAATTORI.Where(a => a.ID == kayttajanOperaattoriString)
+                .Select(a => (int)a.ID).FirstOrDefault();
+
+                string operaattori = db.SQL_OPERAATTORI.Where(a => a.OPERAATTORI_ID == kayttajanOperaattori)
+                .Select(a => a.SQL_OPERAATTORI1).FirstOrDefault();
+
+              
 
                 //Kyselyn muodostus
 
-                string query = valinta + " " + maaritys + " " + "FROM" + " " + ehto;
+                string query = valinta + " " + maaritys + " " + "FROM" + " " + ehto + " " + operaattori;
 
 
-                db.kysely.Add(kysely);
+
+                // Luodaan kyselystä uusi instanssi kysely -luokkaan
+                kysely KäyttäjänKysely = new kysely();
+
+                KäyttäjänKysely.id = db.kysely.Max(u => u.id) + 1;
+                KäyttäjänKysely.kysely1 = query;
+
+
+                // Tallennetaan instanssi modelin kysely -luokkaan (tauluun)
+                db.kysely.Add(KäyttäjänKysely);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
