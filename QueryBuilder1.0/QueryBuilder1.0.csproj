@@ -232,11 +232,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\MAARITYS\Create.cshtml" />
-    <Content Include="Views\MAARITYS\Delete.cshtml" />
-    <Content Include="Views\MAARITYS\Details.cshtml" />
-    <Content Include="Views\MAARITYS\Edit.cshtml" />
-    <Content Include="Views\MAARITYS\Index.cshtml" />
     <Content Include="Views\Query\Index.cshtml" />
     <Content Include="Views\kyselies\Create.cshtml" />
     <Content Include="Views\kyselies\Delete.cshtml" />

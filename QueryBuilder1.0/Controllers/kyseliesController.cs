@@ -54,8 +54,15 @@ namespace QueryBuilder1._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(kysely kysely)
+        public ActionResult Create(kysely kysely, string Taulu, string ehtoMaaritys, string Ehto)
         {
+            if (Taulu == "")
+            {
+                TempData["Huomautus"] = "Anna vähintään taulu mihin haluat suorittaa kyselyn!";
+
+                return RedirectToAction("Create");
+            } 
+
             if (ModelState.IsValid)
             {
                 //Valintaoperaattorin muodostus
@@ -78,30 +85,41 @@ namespace QueryBuilder1._0.Controllers
                 .Select(a => a.SQL_MAARITYS1).FirstOrDefault();
 
 
+
+
                 //Ehto
-                int kayttajanEhtoString = int.Parse(Request.Form["Ehto_ID"]);
+                bool result1 = Int32.TryParse(Request.Form["Ehto_ID"], out int kayttajanEhtoString);
 
-                int kayttajanEhto = db.EHTO.Where(a => a.ID == kayttajanEhtoString)
-                .Select(a => (int)a.ID).FirstOrDefault();
+                string query;
 
-                string ehto = db.SQL_EHTO.Where(a => a.EHTO_ID == kayttajanEhto)
-                .Select(a => a.SQL_EHTO1).FirstOrDefault();
+                if (result1 == true)
+                {
+                    int kayttajanEhto = db.EHTO.Where(a => a.ID == kayttajanEhtoString)
+                    .Select(a => (int)a.ID).FirstOrDefault();
+
+                    string ehto = db.SQL_EHTO.Where(a => a.EHTO_ID == kayttajanEhto)
+                    .Select(a => a.SQL_EHTO1).FirstOrDefault();
 
 
-                //Operaattori
-                int kayttajanOperaattoriString = int.Parse(Request.Form["Operaattori_ID"]);
+                    //Operaattori
+                    int kayttajanOperaattoriString = int.Parse(Request.Form["Operaattori_ID"]);
 
-                int kayttajanOperaattori = db.OPERAATTORI.Where(a => a.ID == kayttajanOperaattoriString)
-                .Select(a => (int)a.ID).FirstOrDefault();
+                    int kayttajanOperaattori = db.OPERAATTORI.Where(a => a.ID == kayttajanOperaattoriString)
+                    .Select(a => (int)a.ID).FirstOrDefault();
 
-                string operaattori = db.SQL_OPERAATTORI.Where(a => a.OPERAATTORI_ID == kayttajanOperaattori)
-                .Select(a => a.SQL_OPERAATTORI1).FirstOrDefault();
+                    string operaattori = db.SQL_OPERAATTORI.Where(a => a.OPERAATTORI_ID == kayttajanOperaattori)
+                    .Select(a => a.SQL_OPERAATTORI1).FirstOrDefault();
 
-              
 
-                //Kyselyn muodostus
+                    //Kyselyn muodostus ehdolla
+                    query = valinta + " " + maaritys + " " + "FROM" + " " + Taulu + " " + ehto + " " + ehtoMaaritys + " " + operaattori + " " + Ehto;
+                }
+                else
+                {
+                    //Kyslyn muodostus ilman ehtoa
+                    query = valinta + " " + maaritys + " " + "FROM" + " " + Taulu;
+                }
 
-                string query = valinta + " " + maaritys + " " + "FROM" + " " + ehto + " " + operaattori;
 
 
 
