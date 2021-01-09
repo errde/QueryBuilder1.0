@@ -19,6 +19,7 @@
         <AssociationConnector Association="QUERY_BILDER_DBModel.FK__SQL_MAARI__SQLVa__3C69FB99" ManuallyRouted="false" />
         <AssociationConnector Association="QUERY_BILDER_DBModel.FK__SQL_VALIN__Valin__3A81B327" ManuallyRouted="false" />
         <EntityTypeShape EntityType="QUERY_BILDER_DBModel.kysely" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="QUERY_BILDER_DBModel.kayttajat" Width="1.5" PointX="7.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

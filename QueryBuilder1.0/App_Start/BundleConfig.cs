@@ -23,7 +23,7 @@ namespace QueryBuilder1._0
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrapjournal.css",
                       "~/Content/site.css"));
         }
     }

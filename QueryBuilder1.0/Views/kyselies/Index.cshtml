@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<QueryBuilder1._0.kysely>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Kyselyiden selaus";
 }
 
-<h2>Index</h2>
+<h2>Kyselyiden selaus</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Luo uusi", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.kysely1)
+            Kyselyt
         </th>
         <th></th>
     </tr>
@@ -23,9 +23,8 @@
             @Html.DisplayFor(modelItem => item.kysely1)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Muokkaa", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Poista", "Delete", new { id=item.id })
         </td>
     </tr>
 }

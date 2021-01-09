@@ -20,7 +20,7 @@ namespace QueryBuilder1._0
             this.SQL_OPERAATTORI = new HashSet<SQL_OPERAATTORI>();
         }
     
-        public double? ID { get; set; }
+        public double ID { get; set; }
         public string OPERAATTORI1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

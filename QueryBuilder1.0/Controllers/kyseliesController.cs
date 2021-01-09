@@ -38,6 +38,7 @@ namespace QueryBuilder1._0.Controllers
         // GET: kyselies/Create
         public ActionResult Create()
         {
+            ViewBag.Kayttaja = new SelectList(db.kayttajat, "id", "kayttaja_nimi");
             ViewBag.Valintaoperaattori = new SelectList(db.VALINTAOPERAATTORI, "ValintaOperaattori_ID", "VALINTAOPERAATTORI1");
             ViewBag.Maaritys = new SelectList(db.MAARITYS, "ID", "MAARITYS_EHTO");
 
@@ -65,6 +66,8 @@ namespace QueryBuilder1._0.Controllers
 
             if (ModelState.IsValid)
             {
+               
+                
                 //Valintaoperaattorin muodostus
 
                 int kayttajanValintaString = int.Parse(Request.Form["ValintaOperaattori_ID"]);
@@ -76,6 +79,7 @@ namespace QueryBuilder1._0.Controllers
                 .Select(a => a.SQL).FirstOrDefault();
 
                 //Määritys
+
                 int kayttajanMaaritysString= int.Parse(Request.Form["Maaritys_ID"]);
 
                 int kayttajanMaaritys = db.MAARITYS.Where(a => a.ID == kayttajanMaaritysString)
@@ -85,9 +89,8 @@ namespace QueryBuilder1._0.Controllers
                 .Select(a => a.SQL_MAARITYS1).FirstOrDefault();
 
 
-
-
                 //Ehto
+
                 bool result1 = Int32.TryParse(Request.Form["Ehto_ID"], out int kayttajanEhtoString);
 
                 string query;
@@ -121,6 +124,12 @@ namespace QueryBuilder1._0.Controllers
                 }
 
 
+                // Käyttäjävalinta
+
+                int valittuKayttaja = int.Parse(Request.Form["id"]);
+
+                int kayttaja = db.kayttajat.Where(a => a.id == valittuKayttaja)
+                .Select(a => (int)a.id).FirstOrDefault();
 
 
                 // Luodaan kyselystä uusi instanssi kysely -luokkaan
@@ -128,6 +137,7 @@ namespace QueryBuilder1._0.Controllers
 
                 KäyttäjänKysely.id = db.kysely.Max(u => u.id) + 1;
                 KäyttäjänKysely.kysely1 = query;
+                KäyttäjänKysely.kayttaja_id = kayttaja;
 
 
                 // Tallennetaan instanssi modelin kysely -luokkaan (tauluun)
@@ -205,30 +215,5 @@ namespace QueryBuilder1._0.Controllers
             base.Dispose(disposing);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public string LuoKysely ()
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        //Valintaoperaattorin muodostus
-
-        //        string kayttajanValintaString = Request.Form["ValintaOperaattori_ID"];
-
-        //        int kayttajanValinta = db.VALINTAOPERAATTORI.Where(a => a.VALINTAOPERAATTORI1 == kayttajanValintaString)
-        //        .Select(a => (int)a.ValintaOperaattori_ID).FirstOrDefault();
-
-        //        string valinta = db.SQL_VALINTAOPERAATTORI.Where(a => a.ValintaOperaattori_ID == kayttajanValinta)
-        //        .Select(a => a.SQL).FirstOrDefault();
-
-
-
-        //        //Kyselyn muodostus
-
-        //        string query = valinta;
-
-        //        return valinta;
-        //    }
-        //}
     }
 }

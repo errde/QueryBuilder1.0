@@ -34,5 +34,6 @@ namespace QueryBuilder1._0
         public virtual DbSet<SQL_VALINTAOPERAATTORI> SQL_VALINTAOPERAATTORI { get; set; }
         public virtual DbSet<VALINTAOPERAATTORI> VALINTAOPERAATTORI { get; set; }
         public virtual DbSet<kysely> kysely { get; set; }
+        public virtual DbSet<kayttajat> kayttajat { get; set; }
     }
 }

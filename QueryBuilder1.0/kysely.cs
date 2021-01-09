@@ -16,5 +16,6 @@ namespace QueryBuilder1._0
     {
         public int id { get; set; }
         public string kysely1 { get; set; }
+        public Nullable<int> kayttaja_id { get; set; }
     }
 }

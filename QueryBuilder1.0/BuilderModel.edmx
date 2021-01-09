@@ -12,12 +12,22 @@
           <Property Name="ID" Type="float" Nullable="false" />
           <Property Name="EHTO" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QUERY_BILDER_DB.dbo.kayttajat' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="kayttajat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="kayttaja_nimi" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="kysely">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="kysely" Type="varchar" MaxLength="1000" />
+          <Property Name="kayttaja_id" Type="int" />
         </EntityType>
         <EntityType Name="MAARITYS">
           <Key>
@@ -73,18 +83,6 @@
           <Property Name="ValintaOperaattori_ID" Type="float" Nullable="false" />
           <Property Name="VALINTAOPERAATTORI" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <Association Name="FK__MAARITYS__VALINT__398D8EEE">
-          <End Role="VALINTAOPERAATTORI" Type="Self.VALINTAOPERAATTORI" Multiplicity="0..1" />
-          <End Role="MAARITYS" Type="Self.MAARITYS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VALINTAOPERAATTORI">
-              <PropertyRef Name="ValintaOperaattori_ID" />
-            </Principal>
-            <Dependent Role="MAARITYS">
-              <PropertyRef Name="VALINTA_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__SQL_EHTO__EHTO_I__3D5E1FD2">
           <End Role="EHTO" Type="Self.EHTO" Multiplicity="0..1" />
           <End Role="SQL_EHTO" Type="Self.SQL_EHTO" Multiplicity="*" />
@@ -94,18 +92,6 @@
             </Principal>
             <Dependent Role="SQL_EHTO">
               <PropertyRef Name="EHTO_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__SQL_MAARI__SQLVa__3C69FB99">
-          <End Role="SQL_VALINTAOPERAATTORI" Type="Self.SQL_VALINTAOPERAATTORI" Multiplicity="0..1" />
-          <End Role="SQL_MAARITYS" Type="Self.SQL_MAARITYS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SQL_VALINTAOPERAATTORI">
-              <PropertyRef Name="SQLValintaOperaattori_ID" />
-            </Principal>
-            <Dependent Role="SQL_MAARITYS">
-              <PropertyRef Name="SQLValintaOperaattori_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -143,17 +129,15 @@
           <EntitySet Name="SQL_OPERAATTORI" EntityType="Self.SQL_OPERAATTORI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SQL_VALINTAOPERAATTORI" EntityType="Self.SQL_VALINTAOPERAATTORI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VALINTAOPERAATTORI" EntityType="Self.VALINTAOPERAATTORI" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__MAARITYS__VALINT__398D8EEE" Association="Self.FK__MAARITYS__VALINT__398D8EEE">
-            <End Role="VALINTAOPERAATTORI" EntitySet="VALINTAOPERAATTORI" />
-            <End Role="MAARITYS" EntitySet="MAARITYS" />
-          </AssociationSet>
+          <EntitySet Name="kayttajat" EntityType="Self.kayttajat" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [kayttajat].[id] AS [id], 
+    [kayttajat].[kayttaja_nimi] AS [kayttaja_nimi]
+    FROM [dbo].[kayttajat] AS [kayttajat]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__SQL_EHTO__EHTO_I__3D5E1FD2" Association="Self.FK__SQL_EHTO__EHTO_I__3D5E1FD2">
             <End Role="EHTO" EntitySet="EHTO" />
             <End Role="SQL_EHTO" EntitySet="SQL_EHTO" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SQL_MAARI__SQLVa__3C69FB99" Association="Self.FK__SQL_MAARI__SQLVa__3C69FB99">
-            <End Role="SQL_VALINTAOPERAATTORI" EntitySet="SQL_VALINTAOPERAATTORI" />
-            <End Role="SQL_MAARITYS" EntitySet="SQL_MAARITYS" />
           </AssociationSet>
           <AssociationSet Name="FK__SQL_OPERA__OPERA__3E52440B" Association="Self.FK__SQL_OPERA__OPERA__3E52440B">
             <End Role="OPERAATTORI" EntitySet="OPERAATTORI" />
@@ -329,6 +313,7 @@
             <End Role="SQL_VALINTAOPERAATTORI" EntitySet="SQL_VALINTAOPERAATTORI" />
           </AssociationSet>
           <EntitySet Name="kysely" EntityType="QUERY_BILDER_DBModel.kysely" />
+          <EntitySet Name="kayttajat" EntityType="QUERY_BILDER_DBModel.kayttajat" />
         </EntityContainer>
         <EntityType Name="kysely">
           <Key>
@@ -336,6 +321,14 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="kysely1" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="kayttaja_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="kayttajat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="kayttaja_nimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -415,7 +408,16 @@
           <EntitySetMapping Name="kysely">
             <EntityTypeMapping TypeName="QUERY_BILDER_DBModel.kysely">
               <MappingFragment StoreEntitySet="kysely">
+                <ScalarProperty Name="kayttaja_id" ColumnName="kayttaja_id" />
                 <ScalarProperty Name="kysely1" ColumnName="kysely" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kayttajat">
+            <EntityTypeMapping TypeName="QUERY_BILDER_DBModel.kayttajat">
+              <MappingFragment StoreEntitySet="kayttajat">
+                <ScalarProperty Name="kayttaja_nimi" ColumnName="kayttaja_nimi" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

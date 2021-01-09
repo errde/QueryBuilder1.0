@@ -20,7 +20,7 @@ namespace QueryBuilder1._0
             this.SQL_EHTO = new HashSet<SQL_EHTO>();
         }
     
-        public double? ID { get; set; }
+        public double ID { get; set; }
         public string EHTO1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
