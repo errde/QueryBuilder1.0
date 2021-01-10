@@ -6,8 +6,20 @@
 
 <h2>Kyselyiden selaus</h2>
 
+@using (Html.BeginForm("Index", "kyselies", FormMethod.Get))
+{
+    <div class="input-group">
+    <p class="px-1">@Html.Label("Käyttäjäsuodatus")</p>
+    <p class="px-1">@Html.DropDownList("kayttajaID", (SelectList)ViewBag.Kayttaja, "--KAIKKI--", new { @class = "form-control" })</p>
+    <p class="px-1"><input type="submit" value="SUODATA" class="form-control" /></p>
+    </div>
+}
+
+<p></p>
+
 <p>
-    @Html.ActionLink("Luo uusi", "Create")
+
+    @Html.ActionLink("Luo uusi kysely", "Create")
 </p>
 <table class="table">
     <tr>
@@ -17,16 +29,17 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.kysely1)
-        </td>
-        <td>
-            @Html.ActionLink("Muokkaa", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Poista", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.kysely1)
+            </td>
+            <td>
+                @Html.ActionLink("Muokkaa", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Poista", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>

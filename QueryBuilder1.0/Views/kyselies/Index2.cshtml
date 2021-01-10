@@ -1,0 +1,38 @@
+﻿@model IEnumerable<QueryBuilder1._0.kysely>
+
+@{
+    ViewBag.Title = "Index2";
+}
+
+<h2>Index2</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.kysely1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.kayttaja_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.kysely1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.kayttaja_id)
+        </td>
+        <td>
+            @Html.ActionLink("Muokkaa", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Poista", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

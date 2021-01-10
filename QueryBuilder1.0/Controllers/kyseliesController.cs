@@ -15,9 +15,21 @@ namespace QueryBuilder1._0.Controllers
         private QUERY_BILDER_DBEntities db = new QUERY_BILDER_DBEntities();
 
         // GET: kyselies
-        public ActionResult Index()
+        public ActionResult Index(int? kayttajaID)
         {
-            return View(db.kysely.ToList());
+            ViewBag.Kayttaja = new SelectList(db.kayttajat, "id", "kayttaja_nimi");
+
+            var kyselyt = from x in db.kysely
+                          select x;
+
+            if (kayttajaID != null)
+            {
+                kyselyt = from a in db.kysely
+                          where a.kayttaja_id == kayttajaID
+                          select a;
+            }
+
+            return View(kyselyt);
         }
 
         // GET: kyselies/Details/5
@@ -115,6 +127,11 @@ namespace QueryBuilder1._0.Controllers
 
 
                     //Kyselyn muodostus ehdolla
+                    if (kayttajanOperaattoriString == 3 || kayttajanOperaattoriString == 4)
+                    {
+                       query = valinta + " " + maaritys + " " + "FROM" + " " + Taulu + " " + ehto + " " + ehtoMaaritys + " " + operaattori + " " + "("  + Ehto + ")";
+                    }
+                    else
                     query = valinta + " " + maaritys + " " + "FROM" + " " + Taulu + " " + ehto + " " + ehtoMaaritys + " " + operaattori + " " + Ehto;
                 }
                 else
