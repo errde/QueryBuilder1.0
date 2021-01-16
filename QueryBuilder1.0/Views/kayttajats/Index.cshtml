@@ -1,0 +1,32 @@
+﻿@model IEnumerable<QueryBuilder1._0.kayttajat>
+
+@{
+    ViewBag.Title = "Käyttäjät";
+}
+
+<h2>Käyttäjien hallinta</h2>
+
+<p>
+    @Html.ActionLink("Lisää käyttäjä", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.kayttaja_nimi)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.kayttaja_nimi)
+        </td>
+        <td>
+            @Html.ActionLink("Muokkaa", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Poista", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -21,7 +21,7 @@
 
     @Html.ActionLink("Luo uusi kysely", "Create")
 </p>
-<table class="table">
+<table class="table table-hover">
     <tr>
         <th>
             Kyselyt
@@ -31,7 +31,7 @@
 
     @foreach (var item in Model)
     {
-        <tr>
+       <tr class="table-light">
             <td>
                 @Html.DisplayFor(modelItem => item.kysely1)
             </td>

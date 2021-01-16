@@ -146,9 +146,8 @@
       <DependentUpon>BuilderModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\kayttajatsController.cs" />
     <Compile Include="Controllers\kyseliesController.cs" />
-    <Compile Include="Controllers\MAARITYSController.cs" />
-    <Compile Include="Controllers\QueryController.cs" />
     <Compile Include="EHTO.cs">
       <DependentUpon>BuilderModel.tt</DependentUpon>
     </Compile>
@@ -332,7 +331,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Query\Index.cshtml" />
     <Content Include="Views\kyselies\Create.cshtml" />
     <Content Include="Views\kyselies\Delete.cshtml" />
     <Content Include="Views\kyselies\Details.cshtml" />
@@ -349,6 +347,11 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\kyselies\Index2.cshtml" />
+    <Content Include="Views\kayttajats\Create.cshtml" />
+    <Content Include="Views\kayttajats\Delete.cshtml" />
+    <Content Include="Views\kayttajats\Details.cshtml" />
+    <Content Include="Views\kayttajats\Edit.cshtml" />
+    <Content Include="Views\kayttajats\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

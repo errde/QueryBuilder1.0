@@ -1,0 +1,26 @@
+﻿@model QueryBuilder1._0.kayttajat
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>kayttajat</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.kayttaja_nimi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kayttaja_nimi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

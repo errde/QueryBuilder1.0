@@ -12,8 +12,6 @@
           <Property Name="ID" Type="float" Nullable="false" />
           <Property Name="EHTO" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'QUERY_BILDER_DB.dbo.kayttajat' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="kayttajat">
           <Key>
             <PropertyRef Name="id" />
@@ -121,6 +119,7 @@ warning 6002: The table/view 'QUERY_BILDER_DB.dbo.kayttajat' does not have a pri
         </Association>
         <EntityContainer Name="QUERY_BILDER_DBModelStoreContainer">
           <EntitySet Name="EHTO" EntityType="Self.EHTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kayttajat" EntityType="Self.kayttajat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="kysely" EntityType="Self.kysely" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MAARITYS" EntityType="Self.MAARITYS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OPERAATTORI" EntityType="Self.OPERAATTORI" Schema="dbo" store:Type="Tables" />
@@ -129,12 +128,6 @@ warning 6002: The table/view 'QUERY_BILDER_DB.dbo.kayttajat' does not have a pri
           <EntitySet Name="SQL_OPERAATTORI" EntityType="Self.SQL_OPERAATTORI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SQL_VALINTAOPERAATTORI" EntityType="Self.SQL_VALINTAOPERAATTORI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VALINTAOPERAATTORI" EntityType="Self.VALINTAOPERAATTORI" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="kayttajat" EntityType="Self.kayttajat" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [kayttajat].[id] AS [id], 
-    [kayttajat].[kayttaja_nimi] AS [kayttaja_nimi]
-    FROM [dbo].[kayttajat] AS [kayttajat]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__SQL_EHTO__EHTO_I__3D5E1FD2" Association="Self.FK__SQL_EHTO__EHTO_I__3D5E1FD2">
             <End Role="EHTO" EntitySet="EHTO" />
             <End Role="SQL_EHTO" EntitySet="SQL_EHTO" />
