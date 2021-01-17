@@ -1,7 +1,7 @@
 ﻿@model QueryBuilder1._0.kayttajat
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Luo käyttäjä";
 }
 @{
     if (TempData["Huomautus2"] != null)
@@ -11,7 +11,7 @@
         </script>
     }
 }
-<h2>Create</h2>
+<h2>Uusi käyttäjä</h2>
 
 
 @using (Html.BeginForm())
@@ -39,7 +39,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Takaisin", "Index")
 </div>
 
 @section Scripts {

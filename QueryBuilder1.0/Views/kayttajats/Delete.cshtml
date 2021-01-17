@@ -6,6 +6,9 @@
 
 
 <h3>Haluatko varmasti poistaa käyttäjän?</h3>
+<h3></h3>
+<h3>Käyttäjän poistaminen poistaa myös kaikki käyttäjän kyselyt.</h3>
+
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -23,7 +26,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-secondary" |
+            <input type="submit" value="Poista" class="btn btn-secondary" |
             @Html.ActionLink("Takaisin", "Index")
         </div>
     }

@@ -132,6 +132,16 @@ namespace QueryBuilder1._0.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             kayttajat kayttajat = db.kayttajat.Find(id);
+
+            var kayttajanKyselyt = from x in db.kysely
+                                   where x.kayttaja_id == id
+                                   select x;
+
+            foreach (var query in kayttajanKyselyt)
+            {
+                db.kysely.Remove(query);
+            }
+
             db.kayttajat.Remove(kayttajat);
             db.SaveChanges();
             return RedirectToAction("Index");
