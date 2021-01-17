@@ -132,7 +132,7 @@ namespace QueryBuilder1._0.Controllers
                        query = valinta + " " + maaritys + " " + "FROM" + " " + Taulu + " " + ehto + " " + ehtoMaaritys + " " + operaattori + " " + "("  + Ehto + ")";
                     }
                     else
-                    query = valinta + " " + maaritys + " " + "FROM" + " " + Taulu + " " + ehto + " " + ehtoMaaritys + " " + operaattori + " " + Ehto;
+                    query = valinta + " " + maaritys + " " + "FROM" + " " + Taulu + " " + ehto + " " + ehtoMaaritys + " " + operaattori + " " +  "'" + Ehto + "'";
                 }
                 else
                 {
